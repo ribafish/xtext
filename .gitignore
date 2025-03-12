@@ -8,3 +8,5 @@ build/
 org.eclipse.buildship.core.prefs
 .DS_Store
 target
+# Develocity
+.mvn/.develocity/develocity-workspace-id
