@@ -114,7 +114,34 @@
 							<!-- matches *Tests.java as well as *Test<n>.java -->
 							<include>**/*Test?.java</include>
 						</includes>
+						<!-- Should match the additional input defined in the develocity-maven-extension configuration below -->
 						<appArgLine>-pluginCustomization ${basedir}/../org.eclipse.xtext.tycho.tests.parent/pluginCustomization.ini</appArgLine>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>com.gradle</groupId>
+					<artifactId>develocity-maven-extension</artifactId>
+					<configuration>
+						<develocity>
+							<plugins>
+								<plugin>
+									<groupId>org.eclipse.tycho</groupId>
+									<artifactId>tycho-surefire-plugin</artifactId>
+									<inputs>
+										<fileSets>
+											<fileSet>
+												<name>pluginCustomization.ini</name>
+												<paths>
+													<!-- Should match the appArgLine path defined in the tycho-surefire-plugin configuration above -->
+													<path>${basedir}/../org.eclipse.xtext.tycho.tests.parent/pluginCustomization.ini</path>
+												</paths>
+												<normalization>RELATIVE_PATH</normalization>
+											</fileSet>
+										</fileSets>
+									</inputs>
+								</plugin>
+							</plugins>
+						</develocity>
 					</configuration>
 				</plugin>
 			</plugins>
