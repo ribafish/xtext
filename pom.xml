@@ -722,6 +722,25 @@
 					<artifactId>nexus-staging-maven-plugin</artifactId>
 					<version>1.6.3</version>
 				</plugin>
+				<plugin>
+					<groupId>com.gradle</groupId>
+					<artifactId>develocity-maven-extension</artifactId>
+					<configuration>
+						<develocity>
+							<normalization>
+								<runtimeClassPath>
+									<metaInf>
+										<ignoredAttributes>
+											<ignore>Bnd-LastModified</ignore>
+											<ignore>Bundle-Version</ignore>
+											<ignore>Eclipse-SourceReferences</ignore>
+										</ignoredAttributes>
+									</metaInf>
+								</runtimeClassPath>
+							</normalization>
+						</develocity>
+					</configuration>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
