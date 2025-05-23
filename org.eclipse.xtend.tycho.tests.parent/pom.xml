@@ -153,6 +153,13 @@
 									</inputs>
 								</plugin>
 							</plugins>
+							<normalization>
+								<runtimeClassPath>
+									<ignoredFiles>
+										<ignoredFile>**/about.mappings</ignoredFile>
+									</ignoredFiles>
+								</runtimeClassPath>
+							</normalization>
 						</develocity>
 					</configuration>
 				</plugin>
