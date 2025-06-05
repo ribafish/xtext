@@ -1,3 +1,10 @@
+def secrets = [
+  [path: 'cbi/modeling.tmf.xtext/develocity.eclipse.org', secretValues: [
+    [envVar: 'DEVELOCITY_ACCESS_KEY', vaultKey: 'api-token']
+    ]
+  ]
+]
+
 pipeline {
   agent {
     kubernetes {
@@ -64,11 +71,13 @@ pipeline {
       }
       steps {
         xvnc(useXauthority: true) {
-          sh """
-            ./full-build.sh --tp=${selectedTargetPlatform()} \
-              ${javaVersion() == 17 ? '--toolchains releng/toolchains.xml -Pstrict-jdk-17' : ''} \
-              ${javaVersion() == 21 ? '-Pstrict-jdk-21' : ''}
-          """
+          withVault([vaultSecrets: secrets]) {
+            sh """
+              ./full-build.sh --tp=${selectedTargetPlatform()} \
+                ${javaVersion() == 17 ? '--toolchains releng/toolchains.xml -Pstrict-jdk-17' : ''} \
+                ${javaVersion() == 21 ? '-Pstrict-jdk-21' : ''}
+            """
+          }
         }
       }// END steps
     } // END stage
